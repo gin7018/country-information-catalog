@@ -2,6 +2,7 @@ import json
 import os
 import zeep
 
+from src.handler.CurrencyConverterDataHandler import convert_currency
 from src.model.Country import Country, CountryProfile
 
 country_info_wsdl_url = "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL"
@@ -36,3 +37,16 @@ def get_country_profile(country_name: str) -> CountryProfile:
     return country_profile
 
 
+def get_currency_code_by_country_code(country_code: str) -> str:
+    result = client.service.CountryCurrency(country_code)
+    print(f"{country_code}'s currency: {result}")
+    return result["sISOCode"]
+
+
+if __name__ == '__main__':
+    # get_all_country_names_local()
+    # get_capital_city_by_country_name("Belgium")
+    info = get_country_profile("Belgium")
+    print(info)
+    cc = get_currency_code_by_country_code(info.iso_code)
+    convert_currency(cc.lower(), "usd")
