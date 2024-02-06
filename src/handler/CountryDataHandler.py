@@ -2,7 +2,6 @@ import json
 import os
 import zeep
 
-from src.handler.CurrencyConverterDataHandler import convert_currency
 from src.model.Country import Country, CountryProfile
 
 country_info_wsdl_url = "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL"
@@ -20,25 +19,19 @@ def get_all_country_names(use_api=False) -> list[Country]:
     return countries
 
 
-def get_capital_city_by_country_name(country_name: str) -> str:
-    all_countries = get_all_country_names()
-    country_info: Country = list(filter(lambda country:
-                                        country.name == country_name, all_countries))[0]
-    result = client.service.CapitalCity(country_info.iso_code)
+def get_capital_city_by_cc(country_code: str) -> str:
+    result = client.service.CapitalCity(country_code.upper())
     return result
 
 
-def get_country_profile(country_name: str) -> CountryProfile:
-    all_countries = get_all_country_names()
-    basic_country_info: Country = list(filter(lambda country:
-                                              country.name == country_name, all_countries))[0]
-    result = client.service.FullCountryInfo(basic_country_info.iso_code)
+def get_country_profile(country_code: str) -> CountryProfile:
+    result = client.service.FullCountryInfo(country_code.upper())
     country_profile = CountryProfile.from_json(result)
     return country_profile
 
 
-def get_currency_code_by_country_code(country_code: str) -> str:
-    result = client.service.CountryCurrency(country_code)
+def get_currency_code_by_cc(country_code: str) -> str:
+    result = client.service.CountryCurrency(country_code.upper())
     print(f"{country_code}'s currency: {result}")
     return result["sISOCode"]
 
@@ -46,7 +39,8 @@ def get_currency_code_by_country_code(country_code: str) -> str:
 if __name__ == '__main__':
     # get_all_country_names_local()
     # get_capital_city_by_country_name("Belgium")
-    info = get_country_profile("Belgium")
-    print(info)
-    cc = get_currency_code_by_country_code(info.iso_code)
-    convert_currency(cc.lower(), "usd")
+    # info = get_country_profile("Belgium")
+    # print(info)
+    # cc = get_currency_code_by_cc(info.iso_code)
+    # convert_currency(cc.lower(), "usd")
+    print(get_capital_city_by_cc("BE"))

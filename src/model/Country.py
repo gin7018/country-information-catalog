@@ -1,8 +1,13 @@
+import json
+
 
 class Country:
     def __init__(self, name, iso_code):
         self.name = name
         self.iso_code = iso_code
+
+    def toJson(self):
+        return json.dumps(self, default=lambda o: o.__dict__)
 
     @staticmethod
     def from_json(data):
@@ -17,6 +22,9 @@ class CountryProfile:
         self.capital_city = capital_city
         self.name = name
         self.iso_code = iso_code
+
+    def toJson(self):
+        return json.dumps(self, default=lambda o: o.__dict__)
 
     @staticmethod
     def from_json(data):
