@@ -1,0 +1,61 @@
+<html>
+  <body>
+      <div id="header">
+        <h1>Country Information Catalog</h1>
+      </div>
+
+      <div id="content-main">
+        <div id="country-list">
+          <div id="country-list-header">
+            <h3>COUNTRY LIST</h3>
+          </div>
+
+          <div *ngFor="let country of country_list">
+            <p id="country" (click)="fetch_country_profile(country.iso_code)">{{country.name}}</p>
+          </div>
+        </div>
+
+        <div id="country-details">
+
+          <div id="country-name-flag">
+            <img src="favicon.ico" alt="country flag">
+            <h2>{{selected_country_info.name.toUpperCase()}}</h2>
+          </div>
+
+          <h4>Country Information</h4>
+          <p>Capital City: {{selected_country_info.capital_city}}</p>
+
+          <div id="languages">
+            <p>Spoken Languages: </p>
+            <p *ngFor="let language of selected_country_info.languages">
+              {{language}}
+            </p>
+          </div>
+
+          <div class="spacer"></div>
+
+          <div id="tourist-spots-section">
+            <h4>Tourist Spots in {{selected_country_info.name}}</h4>
+            <p *ngIf="selected_country_tourist_spots.length == 0">
+              no available information at the moment :(
+            </p>
+            <p *ngFor="let spot of selected_country_tourist_spots">
+              {{spot.name}}
+            </p>
+          </div>
+
+          <div id="restaurants-section">
+            <h4>Restaurants in {{selected_country_info.name}}</h4>
+            <p *ngIf="selected_country_restaurant_spots.length == 0">
+              no available information at the moment :(
+            </p>
+            <p *ngFor="let spot of selected_country_restaurant_spots">
+              {{spot.name}}
+            </p>
+          </div>
+
+        </div>
+      </div>
+  </body>
+
+</html>

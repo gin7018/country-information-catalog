@@ -11,7 +11,7 @@ API_KEY = None if "TOMTOM_API_KEY" not in os.environ else os.environ["TOMTOM_API
 def get_restaurants_in_country(country_code: str) -> list[Place]:
     if not API_KEY:
         return []
-
+    # print("api key is set in resto")
     result = requests.get(
         url=api_endpoint,
         headers={
@@ -32,7 +32,7 @@ def get_restaurants_in_country(country_code: str) -> list[Place]:
 def get_tourist_attractions_in_country(country_code: str) -> list[Place]:
     if not API_KEY:
         return []
-
+    # print("api key is set in tourist")
     result = requests.get(
         url=api_endpoint,
         headers={
@@ -46,9 +46,11 @@ def get_tourist_attractions_in_country(country_code: str) -> list[Place]:
         }
     ).json()
 
-    print(result)
+    # print(result)
     places = list(map(lambda obj: Place.from_json(obj), result["results"]))
     return places
+
+
 
 
 

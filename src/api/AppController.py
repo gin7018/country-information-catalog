@@ -1,10 +1,11 @@
-from flask import Flask, request, Blueprint
-
+from flask import Flask, request, Blueprint, make_response
 import src.handler.CountryDataHandler as country_handler
 import src.handler.CurrencyConverterDataHandler as currency_handler
 import src.handler.SearchPlacesDataHandler as places
 
 app = Flask(__name__)
+# CORS(app, origins=["http://localhost:4200/"])
+
 country_controller = Blueprint("country", __name__, url_prefix="/country")
 currency_conv_controller = Blueprint("currency", __name__, url_prefix="/currency")
 places_controller = Blueprint("places", __name__, url_prefix="/places")
@@ -20,7 +21,9 @@ def get_all_country_names():
     try:
         result = country_handler.get_all_country_names()
         jj = list(map(lambda country: country.toJson(), result))
-        return jj
+        response = make_response(jj)
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        return response
     except Exception as e:
         print(f"something wrong happened {e}")
     return []
@@ -40,7 +43,9 @@ def get_capital_city_by_country_name(country_code: str):
 def get_country_profile(country_code: str):
     try:
         result = country_handler.get_country_profile(country_code)
-        return result
+        response = make_response(result.toJson())
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        return response
     except Exception as e:
         print(e)
     return []
@@ -63,7 +68,10 @@ def convert_currency():
         to_currency: str = request.args.get("to_currency", "eur")
         amount: float = request.args.get("amount", 100)
         result = currency_handler.convert_currency(from_currency, to_currency, amount)
-        return result
+
+        response = make_response(result)
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        return response
     except Exception as e:
         print(f"error happened {e}")
     return None
@@ -74,7 +82,10 @@ def get_restaurants_in_country(country_code: str):
     try:
         results = places.get_restaurants_in_country(country_code)
         restaurants = list(map(lambda place: place.toJson(), results))
-        return restaurants
+
+        response = make_response(restaurants)
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        return response
     except Exception as e:
         print(f"error happened {e}")
     return []
@@ -85,7 +96,10 @@ def get_tourist_attractions_in_country(country_code: str):
     try:
         results = places.get_tourist_attractions_in_country(country_code)
         tourist_attractions = list(map(lambda place: place.toJson(), results))
-        return tourist_attractions
+
+        response = make_response(tourist_attractions)
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        return response
     except Exception as e:
         print(f"error happened {e}")
     return []

@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300&display=swap');
+
+body {
+  font-family: 'IBM Plex Mono', monospace;
+  margin: 0;
+  padding: 0;
+}
+
+#header {
+  text-align: center;
+  padding: 50px;
+  background-color: black;
+  color: white;
+}
+
+#content-main {
+  display: inline-flex;
+  /*margin: 10px 50px 50px;*/
+  /*padding: 10px;*/
+  padding-top: 10px;
+  width: 100%;
+  overflow: clip;
+}
+
+#country-list-header {
+  position: sticky;
+  top: 0;
+  background-color: black;
+  color: white;
+  padding: 5px 50px;
+}
+
+#country-list {
+  height: 600px;
+  width: 30%;
+  overflow-y: scroll;
+  border: 2px black;
+}
+
+#country-list p {
+  padding: 10px 20px;
+  background-color: white;
+  color: black;
+}
+
+#country-list :hover {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+#country-details {
+  width: 70%;
+  padding-left: 30px;
+}
+
+#country-details p {
+  padding-left: 20px;
+}
+
+#country-name-flag {
+  display: flex;
+  justify-content: center;
+}
+
+#country-name-flag h2 {
+  padding-left: 40px;
+}
+
+#country-name-flag img {
+  margin-top: 10px;
+  width: 70px;
+  height: 50px;
+}
+
+#languages {
+  display: flex;
+}
+#languages p {
+  padding-right: 10px;
+}
+
+
+
+
