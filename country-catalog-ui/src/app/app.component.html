@@ -35,13 +35,25 @@
           <div class="spacer"></div>
 
           <div id="tourist-spots-section">
+
             <h4>Tourist Spots in {{selected_country_info.name}}</h4>
+
             <p *ngIf="selected_country_tourist_spots.length == 0">
               no available information at the moment :(
             </p>
-            <p *ngFor="let spot of selected_country_tourist_spots">
-              {{spot.name}}
-            </p>
+<!--            <div id="spots">-->
+<!--              <app-spot-card [spot]="selected_country_tourist_spots[0]"></app-spot-card>-->
+<!--              <app-spot-card [spot]="selected_country_tourist_spots[0]"></app-spot-card>-->
+<!--              <app-spot-card [spot]="selected_country_tourist_spots[0]"></app-spot-card>-->
+<!--              <app-spot-card [spot]="selected_country_tourist_spots[0]"></app-spot-card>-->
+<!--              <app-spot-card [spot]="selected_country_tourist_spots[0]"></app-spot-card>-->
+<!--            </div>-->
+            <div class="spots">
+              <div *ngFor="let spot of selected_country_tourist_spots">
+                <app-spot-card [spot]="spot"></app-spot-card>
+              </div>
+            </div>
+
           </div>
 
           <div id="restaurants-section">
@@ -49,9 +61,13 @@
             <p *ngIf="selected_country_restaurant_spots.length == 0">
               no available information at the moment :(
             </p>
-            <p *ngFor="let spot of selected_country_restaurant_spots">
-              {{spot.name}}
-            </p>
+
+<!--            <app-spot-card [spot]="selected_country_restaurant_spots[0]"></app-spot-card>-->
+            <div class="spots">
+              <div *ngFor="let spot of selected_country_restaurant_spots">
+                <app-spot-card [spot]="spot"></app-spot-card>
+              </div>
+            </div>
           </div>
 
         </div>

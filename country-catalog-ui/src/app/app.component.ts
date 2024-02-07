@@ -17,8 +17,22 @@ export class AppComponent implements OnInit {
     languages: ['English', 'French']
   }
 
-  selected_country_tourist_spots: Place[] = [];
-  selected_country_restaurant_spots: Place[] = [];
+  selected_country_tourist_spots: Place[] = [
+    {
+      name: 'Ponte',
+      address: 'Quissoma, Uíge',
+      phone: '+1 222-222-222',
+      url: ''
+    }
+  ];
+  selected_country_restaurant_spots: Place[] = [
+    {
+      name: 'Restaurante Lafil',
+      address: 'Samba, Luanda',
+      phone: '+1 222-222-222',
+      url: 'lafil.com/hours'
+    }
+  ];
 
 
   constructor(private catalog_service: CatalogServiceService) {

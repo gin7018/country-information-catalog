@@ -31,7 +31,7 @@ body {
 }
 
 #country-list {
-  height: 600px;
+  height: 900px;
   width: 30%;
   overflow-y: scroll;
   border: 2px black;
@@ -80,6 +80,15 @@ body {
   padding-right: 10px;
 }
 
+.spots {
+  height: 300px;
+  overflow-y: scroll;
+  border-style: solid;
+  border-color: black;
+}
 
-
-
+/*#spots :hover {*/
+/*  background-color: black;*/
+/*  color: white;*/
+/*  border-color: white;*/
+/*}*/

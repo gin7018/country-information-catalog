@@ -1,0 +1,17 @@
+
+<div id="spot-details">
+  <div id="detail-type">
+    <p *ngIf="spot?.name">name</p>
+    <p *ngIf="spot?.address">address</p>
+    <p *ngIf="spot?.phone">phone #</p>
+    <p *ngIf="spot?.url">more details</p>
+  </div>
+
+  <div>
+    <p id="name" *ngIf="spot?.name">{{spot?.name}}</p>
+    <p id="address" *ngIf="spot?.address">{{spot?.address}}</p>
+    <p id="phone" *ngIf="spot?.phone">{{spot?.phone}}</p>
+    <p id="url" *ngIf="spot?.url">{{spot?.url}}</p>
+  </div>
+
+</div>

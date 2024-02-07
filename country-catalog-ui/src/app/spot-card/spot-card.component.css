@@ -1,0 +1,20 @@
+
+#spot-details {
+  height: 100px;
+  width: 400px;
+  border-style: solid;
+  border-width: 1px;
+  margin: 5px 5px;
+  display: flex;
+}
+
+#detail-type {
+  width: 100px;
+}
+
+#spot-details p {
+  font-size: 12px;
+  padding: 0;
+  margin: 3px 5px;
+  justify-content: stretch;
+}
