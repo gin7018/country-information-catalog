@@ -61,6 +61,8 @@ export class AppComponent implements OnInit {
             let rep = JSON.parse(country) as CountryName;
             this.country_list.push(rep);
           }
+          this.fetch_country_profile(this.country_list[2].iso_code);
+
         }
       );
   }

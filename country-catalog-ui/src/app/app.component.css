@@ -1,9 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300&display=swap');
 
 body {
-  font-family: 'IBM Plex Mono', monospace;
-  margin: 0;
-  padding: 0;
+  font-family: 'IBM Plex Mono', 'monospace';
 }
 
 #header {
@@ -15,9 +13,6 @@ body {
 
 #content-main {
   display: inline-flex;
-  /*margin: 10px 50px 50px;*/
-  /*padding: 10px;*/
-  padding-top: 10px;
   width: 100%;
   overflow: clip;
 }
@@ -81,7 +76,6 @@ body {
 }
 
 .spots {
-  /*height: 300px;*/
   overflow-x: scroll;
   border: 1px solid black;
   display: flex;
@@ -89,7 +83,6 @@ body {
 
 #currency-converter {
   margin: 10px 20px;
-  /*display: flex;*/
 }
 
 #currency-converter label {

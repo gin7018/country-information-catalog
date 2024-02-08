@@ -1,4 +1,4 @@
-<html>
+
 <body>
 <div id="header">
   <h1>Country Information Catalog</h1>
@@ -18,7 +18,7 @@
   <div id="country-details">
 
     <div id="country-name-flag">
-      <!--            <img src="favicon.ico" alt="country flag">-->
+                  <img *ngIf="selected_country_info" src="{{selected_country_info?.country_flag}}" alt="country flag">
       <h2>{{selected_country_info ? selected_country_info.name.toUpperCase() : ''}}</h2>
     </div>
 
@@ -86,4 +86,4 @@
 </div>
 </body>
 
-</html>
+
