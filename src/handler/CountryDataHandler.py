@@ -1,5 +1,7 @@
 import json
 import os
+from typing import Optional
+
 import zeep
 
 from src.model.Country import Country, CountryProfile
@@ -19,23 +21,22 @@ def get_all_country_names(use_api=False) -> list[Country]:
     return countries
 
 
-def get_capital_city_by_cc(country_code: str) -> str:
-    result = client.service.CapitalCity(country_code.upper())
-    return result
-
-
-def get_country_profile(country_code: str) -> CountryProfile:
-    result = client.service.FullCountryInfo(country_code.upper())
-    country_profile = CountryProfile.from_json(result)
-    return country_profile
+def get_country_profile(country_code: str) -> Optional[CountryProfile]:
+    try:
+        result = client.service.FullCountryInfo(country_code.upper())
+        country_profile = CountryProfile.from_json(result)
+        return country_profile
+    except Exception as e:
+        print(e)
+    return None
 
 
 def get_currency_code_by_cc(country_code: str) -> dict:
     result = client.service.CountryCurrency(country_code.upper())
 
     currency = {
-        "name": result["sName"],
-        "iso_code": result["sISOCode"]
+        "name": result["sName"] or None,
+        "iso_code": result["sISOCode"] or None
     }
     return currency
 
@@ -47,4 +48,3 @@ if __name__ == '__main__':
     # print(info)
     cc = get_currency_code_by_cc(info.iso_code)
     # convert_currency(cc, "usd")
-    print(get_capital_city_by_cc("BE"))
