@@ -4,6 +4,11 @@ export interface CountryName {
     iso_code: string;
 }
 
+export interface Currency {
+  name: string;
+  iso_code: string;
+}
+
 export interface CountryProfile {
     name: string;
     iso_code: string;

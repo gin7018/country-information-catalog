@@ -32,28 +32,32 @@
             </p>
           </div>
 
-          <div class="spacer"></div>
+          <h4>Currency Converter</h4>
+          <div id="currency-converter">
+            <label for="from">{{selected_country_currency.name}}
+              ({{selected_country_currency.iso_code}}) </label>
+            <input type="number" id="from" name="currency 1" min="1"
+                   [value]="selected_currency_value"
+                   (change)="convert_currency(selected_country_currency.iso_code, 'usd', usd_value)">
+
+            <label for="to">United States Dollar (USD)</label>
+            <input type="number" id="to" name="currency 2" min="1"
+                   [value]="usd_value"
+                   (change)="convert_currency('usd', selected_country_currency.iso_code, selected_currency_value)">
+          </div>
 
           <div id="tourist-spots-section">
 
             <h4>Tourist Spots in {{selected_country_info.name}}</h4>
-
             <p *ngIf="selected_country_tourist_spots.length == 0">
               no available information at the moment :(
             </p>
-<!--            <div id="spots">-->
-<!--              <app-spot-card [spot]="selected_country_tourist_spots[0]"></app-spot-card>-->
-<!--              <app-spot-card [spot]="selected_country_tourist_spots[0]"></app-spot-card>-->
-<!--              <app-spot-card [spot]="selected_country_tourist_spots[0]"></app-spot-card>-->
-<!--              <app-spot-card [spot]="selected_country_tourist_spots[0]"></app-spot-card>-->
-<!--              <app-spot-card [spot]="selected_country_tourist_spots[0]"></app-spot-card>-->
-<!--            </div>-->
+
             <div class="spots">
               <div *ngFor="let spot of selected_country_tourist_spots">
                 <app-spot-card [spot]="spot"></app-spot-card>
               </div>
             </div>
-
           </div>
 
           <div id="restaurants-section">

@@ -87,8 +87,21 @@ body {
   border-color: black;
 }
 
-/*#spots :hover {*/
-/*  background-color: black;*/
-/*  color: white;*/
-/*  border-color: white;*/
-/*}*/
+#currency-converter {
+  margin: 10px 20px;
+  /*display: flex;*/
+}
+
+#currency-converter label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+#currency-converter input {
+  width: 200px;
+  height: 30px;
+  font-size: medium;
+  font-family: 'IBM Plex Mono', monospace;
+  margin-bottom: 20px;
+  padding: 5px;
+}

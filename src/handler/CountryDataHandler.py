@@ -30,17 +30,21 @@ def get_country_profile(country_code: str) -> CountryProfile:
     return country_profile
 
 
-def get_currency_code_by_cc(country_code: str) -> str:
+def get_currency_code_by_cc(country_code: str) -> dict:
     result = client.service.CountryCurrency(country_code.upper())
-    print(f"{country_code}'s currency: {result}")
-    return result["sISOCode"]
+
+    currency = {
+        "name": result["sName"],
+        "iso_code": result["sISOCode"]
+    }
+    return currency
 
 
 if __name__ == '__main__':
     # get_all_country_names_local()
     # get_capital_city_by_country_name("Belgium")
-    # info = get_country_profile("Belgium")
+    info = get_country_profile("Belgium")
     # print(info)
-    # cc = get_currency_code_by_cc(info.iso_code)
-    # convert_currency(cc.lower(), "usd")
+    cc = get_currency_code_by_cc(info.iso_code)
+    # convert_currency(cc, "usd")
     print(get_capital_city_by_cc("BE"))

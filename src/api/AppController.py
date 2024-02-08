@@ -1,3 +1,5 @@
+import json
+
 from flask import Flask, request, Blueprint, make_response
 import src.handler.CountryDataHandler as country_handler
 import src.handler.CurrencyConverterDataHandler as currency_handler
@@ -55,7 +57,9 @@ def get_country_profile(country_code: str):
 def get_currency_code_by_country_code(country_code: str):
     try:
         result = country_handler.get_currency_code_by_cc(country_code)
-        return result
+        response = make_response(json.dumps(result))
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        return response
     except Exception as e:
         print(e)
     return []
@@ -69,7 +73,7 @@ def convert_currency():
         amount: float = request.args.get("amount", 100)
         result = currency_handler.convert_currency(from_currency, to_currency, amount)
 
-        response = make_response(result)
+        response = make_response(str(result))
         response.headers["Access-Control-Allow-Origin"] = "*"
         return response
     except Exception as e:

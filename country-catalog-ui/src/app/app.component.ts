@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CatalogServiceService} from "./catalog-service.service";
-import {CountryName, CountryProfile, Place} from "./types";
+import {CountryName, CountryProfile, Currency, Place} from "./types";
 
 @Component({
   selector: 'app-root',
@@ -16,6 +16,15 @@ export class AppComponent implements OnInit {
     country_flag: 'img',
     languages: ['English', 'French']
   }
+
+  selected_country_currency: Currency = {
+    name: 'Dollar',
+    iso_code: 'USD'
+  };
+
+  selected_currency_value = 1;
+  usd_value = 1;
+  convertion_rate = 1.0;
 
   selected_country_tourist_spots: Place[] = [
     {
@@ -58,6 +67,10 @@ export class AppComponent implements OnInit {
   fetch_country_profile(country_code: string): void {
     this.selected_country_tourist_spots = [];
     this.selected_country_restaurant_spots = [];
+
+    this.selected_currency_value = 1;
+    this.usd_value = 1;
+
     this.catalog_service.fetch_country_profile(country_code)
       .subscribe(country_profile => {
         this.selected_country_info = country_profile as CountryProfile;
@@ -77,8 +90,23 @@ export class AppComponent implements OnInit {
               this.selected_country_restaurant_spots.push(obj);
             }
           });
+
+        this.catalog_service.fetch_country_currency(country_code)
+          .subscribe(currency => this.selected_country_currency = currency as Currency)
       });
 
+  }
+
+  convert_currency(from_currency: string, to_currency: string, amount: number): void {
+    this.catalog_service.convert_currency(from_currency, to_currency, amount)
+      .subscribe( conversion_result => {
+        if (to_currency == this.selected_country_currency.iso_code) {
+          this.selected_currency_value = conversion_result;
+        }
+        else {
+          this.usd_value = conversion_result;
+        }
+        })
   }
 
 }
