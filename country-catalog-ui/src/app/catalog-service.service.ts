@@ -21,7 +21,7 @@ export class CatalogServiceService {
     return this.http.get<any>(endpoint)
   }
 
-  convert_currency(from: string, to: string, amount: number): Observable<number> {
+  fetch_conversion_rate(from: string, to: string, amount: number=1): Observable<number> {
     const endpoint = new URL(this.port + `currency/convert`);
     endpoint.searchParams.set("from_currency", from);
     endpoint.searchParams.set("to_currency", to);
@@ -34,6 +34,7 @@ export class CatalogServiceService {
     const endpoint = new URL(this.port + `country/currency/${country_code}`);
     return this.http.get<any>(endpoint.toString());
   }
+
 
   fetch_tourist_attractions_in_country(country_code: string): Observable<any[]> {
     const endpoint = this.port + `places/tourist/${country_code}`

@@ -1,81 +1,89 @@
 <html>
-  <body>
-      <div id="header">
-        <h1>Country Information Catalog</h1>
+<body>
+<div id="header">
+  <h1>Country Information Catalog</h1>
+</div>
+
+<div id="content-main">
+  <div id="country-list">
+    <div id="country-list-header">
+      <h3>COUNTRY LIST</h3>
+    </div>
+
+    <div *ngFor="let country of country_list">
+      <p (click)="fetch_country_profile(country.iso_code)" id="country">{{country.name}}</p>
+    </div>
+  </div>
+
+  <div id="country-details">
+
+    <div id="country-name-flag">
+      <!--            <img src="favicon.ico" alt="country flag">-->
+      <h2>{{selected_country_info ? selected_country_info.name.toUpperCase() : ''}}</h2>
+    </div>
+
+    <div *ngIf="!selected_country_info">
+      <p>No country information available this country :(</p>
+    </div>
+
+
+    <div *ngIf="selected_country_info">
+      <h4>Country Information</h4>
+      <p>Capital City: {{selected_country_info.capital_city}}</p>
+
+      <div id="languages">
+        <p>Spoken Languages: </p>
+        <p *ngFor="let language of selected_country_info.languages">
+          {{language}}
+        </p>
       </div>
 
-      <div id="content-main">
-        <div id="country-list">
-          <div id="country-list-header">
-            <h3>COUNTRY LIST</h3>
+      <h4>Currency Converter</h4>
+      <div id="currency-converter">
+        <label for="from">{{selected_country_currency.name}}
+          ({{selected_country_currency.iso_code}}) </label>
+        <input #from_amount (input)="convert_currency(selected_country_currency.iso_code, 'usd', from_amount.value)" [value]="this.selected_currency_value" id="from" min="1"
+               name="currency 1"
+               type="number">
+
+        <label for="to">United States Dollar (USD)</label>
+        <input #to_amount (input)="convert_currency('usd', selected_country_currency.iso_code, to_amount.value)" [value]="this.usd_value" id="to" min="1"
+               name="currency 2"
+               type="number">
+      </div>
+
+
+      <div id="tourist-spots-section">
+
+        <h4>Tourist Spots in {{selected_country_info.name}}</h4>
+        <p *ngIf="selected_country_tourist_spots.length == 0">
+          no available information at the moment :(
+        </p>
+
+        <div class="spots">
+          <div *ngFor="let spot of selected_country_tourist_spots">
+            <app-spot-card [spot]="spot"></app-spot-card>
           </div>
-
-          <div *ngFor="let country of country_list">
-            <p id="country" (click)="fetch_country_profile(country.iso_code)">{{country.name}}</p>
-          </div>
-        </div>
-
-        <div id="country-details">
-
-          <div id="country-name-flag">
-            <img src="favicon.ico" alt="country flag">
-            <h2>{{selected_country_info.name.toUpperCase()}}</h2>
-          </div>
-
-          <h4>Country Information</h4>
-          <p>Capital City: {{selected_country_info.capital_city}}</p>
-
-          <div id="languages">
-            <p>Spoken Languages: </p>
-            <p *ngFor="let language of selected_country_info.languages">
-              {{language}}
-            </p>
-          </div>
-
-          <h4>Currency Converter</h4>
-          <div id="currency-converter">
-            <label for="from">{{selected_country_currency.name}}
-              ({{selected_country_currency.iso_code}}) </label>
-            <input type="number" id="from" name="currency 1" min="1"
-                   [value]="selected_currency_value"
-                   (change)="convert_currency(selected_country_currency.iso_code, 'usd', usd_value)">
-
-            <label for="to">United States Dollar (USD)</label>
-            <input type="number" id="to" name="currency 2" min="1"
-                   [value]="usd_value"
-                   (change)="convert_currency('usd', selected_country_currency.iso_code, selected_currency_value)">
-          </div>
-
-          <div id="tourist-spots-section">
-
-            <h4>Tourist Spots in {{selected_country_info.name}}</h4>
-            <p *ngIf="selected_country_tourist_spots.length == 0">
-              no available information at the moment :(
-            </p>
-
-            <div class="spots">
-              <div *ngFor="let spot of selected_country_tourist_spots">
-                <app-spot-card [spot]="spot"></app-spot-card>
-              </div>
-            </div>
-          </div>
-
-          <div id="restaurants-section">
-            <h4>Restaurants in {{selected_country_info.name}}</h4>
-            <p *ngIf="selected_country_restaurant_spots.length == 0">
-              no available information at the moment :(
-            </p>
-
-<!--            <app-spot-card [spot]="selected_country_restaurant_spots[0]"></app-spot-card>-->
-            <div class="spots">
-              <div *ngFor="let spot of selected_country_restaurant_spots">
-                <app-spot-card [spot]="spot"></app-spot-card>
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
-  </body>
+
+      <div id="restaurants-section">
+        <h4>Restaurants in {{selected_country_info.name}}</h4>
+        <p *ngIf="selected_country_restaurant_spots.length == 0">
+          no available information at the moment :(
+        </p>
+
+        <!--            <app-spot-card [spot]="selected_country_restaurant_spots[0]"></app-spot-card>-->
+        <div class="spots">
+          <div *ngFor="let spot of selected_country_restaurant_spots">
+            <app-spot-card [spot]="spot"></app-spot-card>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
 
 </html>

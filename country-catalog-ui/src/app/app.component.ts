@@ -10,8 +10,9 @@ import {CountryName, CountryProfile, Currency, Place} from "./types";
 export class AppComponent implements OnInit {
   country_list: CountryName[] = [];
 
-  selected_country_info = {
+  selected_country_info: CountryProfile | undefined = {
     name: 'Angola',
+    iso_code: 'none',
     capital_city: 'Luanda',
     country_flag: 'img',
     languages: ['English', 'French']
@@ -65,11 +66,13 @@ export class AppComponent implements OnInit {
   }
 
   fetch_country_profile(country_code: string): void {
+    this.selected_country_info = undefined;
     this.selected_country_tourist_spots = [];
     this.selected_country_restaurant_spots = [];
 
-    this.selected_currency_value = 1;
-    this.usd_value = 1;
+    this.selected_currency_value = 0;
+    this.usd_value = 0;
+    this.convertion_rate = 1.0;
 
     this.catalog_service.fetch_country_profile(country_code)
       .subscribe(country_profile => {
@@ -97,17 +100,19 @@ export class AppComponent implements OnInit {
 
   }
 
-  convert_currency(from_currency: string, to_currency: string, amount: number): void {
-    this.catalog_service.convert_currency(from_currency, to_currency, amount)
-      .subscribe( conversion_result => {
-        if (to_currency == this.selected_country_currency.iso_code) {
-          this.selected_currency_value = conversion_result;
-        }
-        else {
-          this.usd_value = conversion_result;
-        }
-        })
-  }
+  convert_currency(from_currency: string, to_currency: string, value: string): void {
+    let amount = Number(value);
+    console.log(`converting from ${from_currency} to ${to_currency}, amount: ${amount}`)
 
+    if (to_currency == this.selected_country_currency.iso_code) {
+      this.catalog_service.fetch_conversion_rate('usd', this.selected_country_currency.iso_code)
+        .subscribe(rate => this.selected_currency_value = amount *rate);
+
+    }
+    else {
+      this.catalog_service.fetch_conversion_rate(this.selected_country_currency.iso_code, 'usd')
+        .subscribe(rate => this.usd_value = amount *rate);
+    }
+  }
 }
 
