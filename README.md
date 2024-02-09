@@ -22,6 +22,7 @@ a country's profile all in one. find information on a country's:
     
     ```
     cd country-catalog-ui/
+    npm install           # run this command to install the required node modules
     ng serve
     ``` 
     the UI should now be running on port http://localhost:4200/
