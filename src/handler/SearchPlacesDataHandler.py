@@ -5,7 +5,7 @@ import requests
 from src.model.Place import Place
 
 api_endpoint = "https://api.tomtom.com/search/2/categorySearch/.json"
-API_KEY = None if "TOMTOM_API_KEY" not in os.environ else os.environ["TOMTOM_API_KEY"]
+API_KEY = "G7MaOtAd1WAFEDLz7c1EAqahFyU3SzHD"
 
 
 def get_restaurants_in_country(country_code: str) -> list[Place]:
